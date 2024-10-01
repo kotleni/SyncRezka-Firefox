@@ -5,7 +5,7 @@ Firefox extension for syncronized watching HDRezka.<br>
 ### TODO
 - [x] Rooms
 - [x] Time sync
-- [ ] Pause/play sync
+- [x] Pause/play sync
 - [ ] Url sync
 - [ ] Audio-track sync
 - [ ] Slave-side pause/play 
