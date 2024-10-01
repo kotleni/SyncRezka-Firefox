@@ -10,7 +10,7 @@
             video.onplaying = (event) => { 
                 browser.runtime.sendMessage({ type: 'onPlay', time: video.currentTime });
             };
-            video.onpaused = (event) => { 
+            video.onpause = (event) => { 
                 browser.runtime.sendMessage({ type: 'onPause', time: video.currentTime });
             };
         }
@@ -44,6 +44,13 @@
                 let difference = Math.abs(video.currentTime - message.time);
                 if(difference > allowedDifference)
                     video.currentTime = message.time;
+                break;
+
+            case 'setPlayerState':
+                console.log('setPlayerTime' + message.isPlaying)
+                let isPlaying = message.isPlaying;
+                if(isPlaying) video.play()
+                else video.pause()
                 break;
         }
     });

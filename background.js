@@ -30,9 +30,11 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
             break
         case 'onPlay':
             lastState = 'PLAYING'
+            socket.send("sync " + userId + " PLAY")
             break;
         case 'onPause':
             lastState = 'PAUSED'
+            socket.send("sync " + userId + " PAUSE")
             break;
         case 'onTimeUpdate':
             lastTime = message.time
@@ -83,9 +85,24 @@ socket.addEventListener("message", (event) => {
             break;
 
         case 'syncSlave':
-            let time = parseFloat(spl[1])
-            console.log('syncSlave ' + time)
-            sendToActiveTab({ type: 'setPlayerTime', time: time });
+            let data = spl[1]
+
+            switch(data) {
+                case 'PLAY':
+                    console.log('syncSlave ' + data)
+                    sendToActiveTab({ type: 'setPlayerState', isPlaying: true });
+                    break;
+                case 'PAUSE':
+                    console.log('syncSlave ' + data)
+                    sendToActiveTab({ type: 'setPlayerState', isPlaying: false });
+                    break;
+                default:
+                    let time = parseFloat(data)
+                    console.log('syncSlave ' + time)
+                    sendToActiveTab({ type: 'setPlayerTime', time: time });
+                    break
+
+            }
             break;
 
         default:
