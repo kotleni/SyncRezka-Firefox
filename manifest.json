@@ -1,0 +1,29 @@
+{
+    "manifest_version": 2,
+    "name": "SyncRezka (hdrezka.ag)",
+    "version": "1.0",
+    "description": "Sync rooms for watching together.",
+    "permissions": [
+      "activeTab"
+    ],
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://hdrezka.ag/*"],
+        "js": ["content.js"],
+        "run_at": "document_end"
+      }
+    ],
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "48": "logo.svg"
+        }
+    },
+    "icons": {
+      "48": "logo.svg"
+    }
+  }
+  
